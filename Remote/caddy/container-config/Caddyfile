@@ -1,0 +1,3 @@
+http://warden.<your-domain> {
+    reverse_proxy http://<your-ip>:8080
+}
