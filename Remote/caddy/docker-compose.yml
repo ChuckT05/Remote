@@ -16,17 +16,35 @@
 #   caddy_data:
 #   caddy_config:
 
+# services:
+#   caddy:
+#     image: docker.io/library/caddy:latest
+#     container_name: caddy
+#     restart: unless-stopped
+#     security_opt:
+#       - label:disable
+#     ports:
+#       - "8080:80"
+#       - "8443:443"
+#       - "8443:443/udp"
+#     volumes:
+#       - ./container-config:/etc/caddy
+#       - /etc/localtime:/etc/localtime:ro
+
 services:
   caddy:
-    image: caddy:latest
+    image: docker.io/library/caddy:latest
     container_name: caddy
-    restart: unless-stopped
-    security_opt:
-      - label:disable
     ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
+      - "8080:80"    
+      - "8443:443"    
+      - "8443:443/udp"
     volumes:
-      - ./container-config:/etc/caddy
-      - /etc/localtime:/etc/localtime:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:
