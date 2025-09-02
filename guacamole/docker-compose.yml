@@ -1,0 +1,60 @@
+services:
+
+  guacamole:
+    image: guacamole/guacamole
+    container_name: guacamole
+    environment:
+      - GUACD_HOSTNAME=guacamole-guacd
+      - GUACAMOLE_HOME=
+    networks:
+      - guacamole-nw
+      - reverseproxy-nw
+      
+  guacamole-guacd:
+    image: guacamole/guacd
+    container_name: guacamole-guacd
+    networks:
+      - guacamole-nw
+
+networks:
+  guacamole-nw: {}
+  reverseproxy-nw: {}
+
+# services:
+#   frontend:
+#     image: example/webapp
+#     ports:
+#       - "443:8043"
+#     networks:
+#       - front-tier
+#       - back-tier
+#     configs:
+#       - httpd-config
+#     secrets:
+#       - server-certificate
+
+#   backend:
+#     image: example/database
+#     volumes:
+#       - db-data:/etc/data
+#     networks:
+#       - back-tier
+
+# volumes:
+#   db-data:
+#     driver: flocker
+#     driver_opts:
+#       size: "10GiB"
+
+# configs:
+#   httpd-config:
+#     external: true
+
+# secrets:
+#   server-certificate:
+#     external: true
+
+# networks:
+#   # The presence of these objects is sufficient to define them
+#   front-tier: {}
+#   back-tier: {}
