@@ -1,6 +1,6 @@
 services:
   guacamole:
-    image: guacamole/guacamole:latest
+    image: docker.io/guacamole/guacamole:1.5.5
     container_name: guacamole
     security_opt:
       - label:disable
@@ -15,14 +15,14 @@ services:
       - POSTGRES_USER=guacamole
       - POSTGRES_PASSWORD=\${POSTGRES_PASSWORD}
     ports:
-      - 8080:8080
+      - 8081:8080
     restart: always
     networks:
       - reverseproxy-nw
       - guacamole-nw
 
   guacamole-guacd:
-    image: guacamole/guacd:latest
+    image: docker.io/guacamole/guacd:1.5.5
     container_name: guacamole-guacd
     security_opt:
       - label:disable
@@ -35,7 +35,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
 
   guacamole-db:
-    image: postgres:13
+    image: docker.io/library/postgres:15
     container_name: guacamole-db
     security_opt:
       - label:disable

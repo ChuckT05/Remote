@@ -1,6 +1,6 @@
 services:
   caddy:
-    image: docker.io/library/caddy:builder-alpine
+    image: docker.io/library/caddy:alpine
     container_name: caddy
     restart: unless-stopped
     security_opt:
@@ -14,7 +14,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     networks:
       - reverseproxy-nw
-      
+
 networks:
   reverseproxy-nw:
     external: true

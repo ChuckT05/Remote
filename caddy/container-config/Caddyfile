@@ -1,12 +1,15 @@
-http://warden.<your-domain> {
-    reverse_proxy http://<your-ip>:8080
-}
-
 :80 {
-  respond "Hello from Caddy on port 8080!"
-}
+    reverse_proxy guacamole:8080
 
-:443 {
-  tls you@example.com
-  respond "Secure connection on port 8443!"
+    log {
+        output file /var/log/caddy/guacamole-access.log
+        format single_field common_log
+    }
+
+    header {
+        Strict-Transport-Security "max-age=31536000;"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "no-referrer"
+    }
 }
