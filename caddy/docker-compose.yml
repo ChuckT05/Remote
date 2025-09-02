@@ -1,50 +1,38 @@
-# services:
-#   caddy:
-#     image: caddy:<version>
-#     restart: unless-stopped
-#     ports:
-#       - "80:80"
-#       - "443:443"
-#       - "443:443/udp"
-#     volumes:
-#       - ./conf:/etc/caddy
-#       - ./site:/srv
-#       - caddy_data:/data
-#       - caddy_config:/config
+services:
+  caddy:
+    image: docker.io/library/caddy:builder-alpine
+    container_name: caddy
+    restart: unless-stopped
+    security_opt:
+      - label:disable
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./container-config:/etc/caddy
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - reverseproxy-nw
 
-# volumes:
-#   caddy_data:
-#   caddy_config:
+networks:
+  reverseproxy-nw:
+    external: true
 
 # services:
 #   caddy:
 #     image: docker.io/library/caddy:latest
 #     container_name: caddy
-#     restart: unless-stopped
-#     security_opt:
-#       - label:disable
 #     ports:
-#       - "8080:80"
-#       - "8443:443"
+#       - "8080:80"    
+#       - "8443:443"    
 #       - "8443:443/udp"
 #     volumes:
 #       - ./container-config:/etc/caddy
-#       - /etc/localtime:/etc/localtime:ro
+#       - caddy_data:/data
+#       - caddy_config:/config
+#     restart: unless-stopped
 
-services:
-  caddy:
-    image: docker.io/library/caddy:latest
-    container_name: caddy
-    ports:
-      - "8080:80"    
-      - "8443:443"    
-      - "8443:443/udp"
-    volumes:
-      - ./container-config:/etc/caddy
-      - caddy_data:/data
-      - caddy_config:/config
-    restart: unless-stopped
-
-volumes:
-  caddy_data:
-  caddy_config:
+# volumes:
+#   caddy_data:
+#   caddy_config:
