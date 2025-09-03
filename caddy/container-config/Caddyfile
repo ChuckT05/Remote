@@ -2,8 +2,8 @@
     reverse_proxy guacamole:8080
 
     log {
-        output file /var/log/caddy/guacamole-access.log
-        format single_field common_log
+      output stdout
+      format json
     }
 
     header {
