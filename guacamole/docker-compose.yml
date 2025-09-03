@@ -14,7 +14,6 @@ services:
       - POSTGRESQL_DATABASE=guacamole_db
       - POSTGRESQL_USERNAME=guacamole_user
       - POSTGRESQL_PASSWORD=\${POSTGRES_PASSWORD}
-      - REMOTE_IP_VALVE_ENABLED:true
     depends_on:
       - guacd
       - postgres
