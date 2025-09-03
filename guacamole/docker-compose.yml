@@ -12,8 +12,8 @@ services:
       - GUACAMOLE_HOME=/guacamole-home
       - POSTGRESQL_HOSTNAME=guacamole-db
       - POSTGRESQL_DATABASE=guacamole_db
-      - POSTGRESQL_USERNAME=guacamole_user
-      - POSTGRESQL_PASSWORD=\${POSTGRES_PASSWORD}
+      - POSTGRESQL_USER=guacamole_user
+      - POSTGRESQL_PASSWORD=${POSTGRES_PASSWORD}
     depends_on:
       - guacd
       - postgres
@@ -46,7 +46,7 @@ services:
     environment:
       - POSTGRES_DB=guacamole_db
       - POSTGRES_USER=guacamole
-      - POSTGRES_PASSWORD=\${POSTGRES_PASSWORD}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
     volumes:
       - ./container-data/db:/var/lib/postgresql/data
