@@ -3,7 +3,7 @@ services:
     image: docker.io/guacamole/guacamole:1.5.5
     container_name: guacamole
     security_opt:
-      - label=disable
+      - label:disable
     volumes:
       - ./container-data/extensions:/guacamole-home/extensions
       - /etc/localtime:/etc/localtime:ro
@@ -12,8 +12,12 @@ services:
       - GUACAMOLE_HOME=/guacamole-home
       - POSTGRESQL_HOSTNAME=guacamole-db
       - POSTGRESQL_DATABASE=guacamole_db
-      - POSTGRESQL_USER=guacamole
+      - POSTGRESQL_USERNAME=guacamole_user
       - POSTGRESQL_PASSWORD=\${POSTGRES_PASSWORD}
+      - REMOTE_IP_VALVE_ENABLED:true
+    depends_on:
+      - guacd
+      - postgres
     ports:
       - 8081:8080
     restart: always
@@ -25,7 +29,7 @@ services:
     image: docker.io/guacamole/guacd:1.5.5
     container_name: guacamole-guacd
     security_opt:
-      - label=disable
+      - label:disable
     networks:
       - guacamole-nw
     restart: always
@@ -38,7 +42,7 @@ services:
     image: docker.io/library/postgres:15
     container_name: guacamole-db
     security_opt:
-      - label=disable
+      - label:disable
     restart: always
     environment:
       - POSTGRES_DB=guacamole_db
