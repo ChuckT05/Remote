@@ -52,7 +52,7 @@ services:
     volumes:
       - ./container-data/db:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
-      - ./container-data/db-init/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql # can be removed after initialization
+      - /mnt/containers/guacamole/container-data/db-init/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
     networks:
       - guacamole-nw
 
@@ -60,8 +60,6 @@ networks:
   guacamole-nw:
   reverseproxy-nw:
     external: true
-
-
 
 # services:
 #   guacamole:
