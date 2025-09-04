@@ -14,20 +14,3 @@
     }
 }
 
-// remote.<yourdomain>.com {
-//     # only allow connections from internal subnets
-//     @localOnly {
-//         remote_ip forwarded 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16
-//     }
-//     handle @localOnly {
-//         # redirect all root paths to the guacamole subpath
-//         @notGuac {
-//             not path /guacamole*
-//         }
-//         redir @notGuac /guacamole/
-//         reverse_proxy guacamole:8080 {
-//             # allow long timeouts to prevent resetting active sessions
-//             flush_interval -1
-//         }
-//     }
-// }
