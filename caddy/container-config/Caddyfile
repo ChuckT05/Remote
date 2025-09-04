@@ -1,5 +1,9 @@
 :80 {
-    reverse_proxy guacamole:8080
+    route / {
+        redir /guacamole
+    }
+
+    reverse_proxy /guacamole/* guacamole:8080
 
     log {
       output stdout
