@@ -1,15 +1,20 @@
 services:
   caddy:
     build:
-      context: ./Docker-files/caddy
+      context: ${CADDY_BUILD_PATH}
+      dockerfile: Dockerfile
     container_name: caddy
     restart: unless-stopped
     security_opt:
       - label:disable
+    # ports:
+    #   - "8080:80"
+    #   - "8443:443"
+    #   - "8443:443/udp"
     ports:
-      - "8080:80"
-      - "8443:443"
-      - "8443:443/udp"
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
     volumes:
       - ./container-config:/etc/caddy
       - /etc/localtime:/etc/localtime:ro
