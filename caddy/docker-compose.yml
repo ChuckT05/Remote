@@ -1,9 +1,7 @@
-version: "3.8"
-
 services:
   caddy:
     build:
-      context: ./Docker-files/caddy/Dockerfile
+      context: ./Docker-files/caddy
     container_name: caddy
     restart: unless-stopped
     security_opt:
@@ -15,8 +13,6 @@ services:
     volumes:
       - ./container-config:/etc/caddy
       - /etc/localtime:/etc/localtime:ro
-    environment:
-      - CF_API_TOKEN=${CF_API_TOKEN}
     networks:
       - reverseproxy-nw
 

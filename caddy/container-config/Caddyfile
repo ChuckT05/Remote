@@ -1,16 +1,25 @@
-:80 {
-    reverse_proxy guacamole:8080
+{
+    # do not attempt to install certs on the docker container
+    skip_install_trust
+}
 
-    log {
-        output stdout
-        format json
-    }
-
-    header {
-        Strict-Transport-Security "max-age=31536000;"
-        X-Content-Type-Options "nosniff"
-        X-Frame-Options "DENY"
-        Referrer-Policy "no-referrer"
+(localTLS) {
+    tls internal {
+        on_demand
     }
 }
 
+(localHostOnly) {
+    @localHostOnly remote_ip 127.0.0.1
+}
+
+(localSubnets) {
+    @localSubnets remote_ip private_ranges
+}
+
+https://*.greenchdesk.com {
+    tls {
+        dns cloudflare <your-API-Key>
+    }
+    import *.caddy
+}
