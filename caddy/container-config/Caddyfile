@@ -2,7 +2,7 @@ https://greenchdesk.com {
     tls {
         dns cloudflare <your-API-Key>
         ca https://acme-staging-v02.api.letsencrypt.org/directory
-        email chuckt43212@gmail.com
+        email you@example.com
     }
 
     reverse_proxy /guacamole localhost:8080
