@@ -15,11 +15,11 @@ services:
       - POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE}
       - POSTGRESQL_USER=${POSTGRESQL_USER}
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
-      - OPENID_AUTHORIZATION_ENDPOINT=https://auth.<your-domain>/realms/master/protocol/openid-connect/auth
-      - OPENID_JWKS_ENDPOINT=https://auth.<your-domain>/realms/master/protocol/openid-connect/certs
-      - OPENID_ISSUER=https://auth.<your-domain>/realms/master
-      - OPENID_CLIENT_ID=guacamole
-      - OPENID_REDIRECT_URI=https://remote.<your-domain>/guacamole
+      # - OPENID_AUTHORIZATION_ENDPOINT=https://auth.<your-domain>/realms/master/protocol/openid-connect/auth
+      # - OPENID_JWKS_ENDPOINT=https://auth.<your-domain>/realms/master/protocol/openid-connect/certs
+      # - OPENID_ISSUER=https://auth.<your-domain>/realms/master
+      # - OPENID_CLIENT_ID=guacamole
+      # - OPENID_REDIRECT_URI=https://remote.<your-domain>/guacamole
     depends_on:
       - guacamole-guacd
       - guacamole-db
