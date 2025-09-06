@@ -3,5 +3,11 @@ https://greenchdesk.com {
         dns cloudflare <your-API-Key>
     }
 
-    reverse_proxy guacamole:8080
+    reverse_proxy /guacamole localhost:8080
+
+    log {
+        output stdout
+        format console
+        level INFO
+    }
 }
