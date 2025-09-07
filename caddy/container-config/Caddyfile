@@ -1,19 +1,23 @@
 {
-    email you@example.com
+    email admin@example.com
+    acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN} 
     acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+    debug                                           
 }
 
-auth.greenchdesk.com {
-    reverse_proxy http://keycloak:8080
-}
-
-https://greenchdesk.com {
-    tls {
-        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
-    }
-
+example.com {
     reverse_proxy /guacamole guacamole:8080
+    encode gzip
+    log {
+        output stdout
+        format console
+        level INFO
+    }
+}
 
+api.example.com {
+    reverse_proxy http://keycloak:8080
+    encode gzip
     log {
         output stdout
         format console
