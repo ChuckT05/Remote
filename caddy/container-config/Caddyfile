@@ -3,12 +3,16 @@
     acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
 }
 
+auth.greenchdesk.com {
+    reverse_proxy http://keycloak:8080
+}
+
 https://greenchdesk.com {
     tls {
         dns cloudflare {env.CLOUDFLARE_API_TOKEN}
     }
 
-    reverse_proxy /guacamole localhost:8080
+    reverse_proxy /guacamole guacamole:8080
 
     log {
         output stdout
