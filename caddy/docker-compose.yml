@@ -7,6 +7,10 @@ services:
     restart: unless-stopped
     security_opt:
       - label:disable
+      - no-new-privileges:true
+    cap_add: 
+      - NET_BIND_SERVICE  
+    read_only: true
     # ports:
     #   - "8080:80"
     #   - "8443:443"
@@ -20,7 +24,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     networks:
       - reverseproxy-nw
-
+   
 networks:
   reverseproxy-nw:
     external: true
