@@ -23,13 +23,14 @@ services:
     networks:
       - reverseproxy-nw
       - keycloak-nw
-    command: >
-      bash -c "
-        until pg_isready -h keycloak-db -p 5432 -U keycloak; do
-          echo 'Waiting for database...'; sleep 2;
-        done;
-        /opt/keycloak/bin/kc.sh start
-      "
+    command: start
+    # command: >
+    #   bash -c "
+    #     until pg_isready -h keycloak-db -p 5432 -U keycloak; do
+    #       echo 'Waiting for database...'; sleep 2;
+    #     done;
+    #     /opt/keycloak/bin/kc.sh start
+    #   "
 
   keycloak-db:
     container_name: keycloak-db
