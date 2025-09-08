@@ -6,8 +6,16 @@
 }
 
 example.com {
-    reverse_proxy /guacamole guacamole:8080
+    # Redirect root domain to /guacamole/
+    @root path /
+    redir @root /guacamole/
+
+    handle /guacamole/* {
+        reverse_proxy guacamole:8080
+    }
+
     encode gzip
+
     log {
         output stdout
         format console
