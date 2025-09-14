@@ -1,0 +1,12 @@
+services:
+  netbird:
+    cap_add:
+      - NET_ADMIN
+    container_name: netbird
+    environment:
+      - NB_SETUP_KEY=
+    image: netbirdio/netbird:latest
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./netbird-client:/etc/netbird
