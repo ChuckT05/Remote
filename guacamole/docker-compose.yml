@@ -27,7 +27,7 @@ services:
     #   - "8081:8080"
     restart: always
     networks:
-      - reverseproxy-nw
+      # - reverseproxy-nw
       - guacamole-nw
 
   guacamole-guacd:
@@ -63,6 +63,6 @@ services:
 
 networks:
   guacamole-nw:
-  reverseproxy-nw:
-    external: true
+  # reverseproxy-nw:
+  #   external: true
 

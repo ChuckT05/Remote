@@ -51,3 +51,45 @@ https://domain.com {
         level INFO
     }
 }
+
+
+Caddyfile #1
+
+{
+    email admin@example.com
+    acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN} 
+    acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+    debug                                           
+}
+
+example.com {
+    # Redirect root domain to /guacamole/
+    @root path /
+    redir @root /guacamole/
+
+    handle /guacamole/* {
+        reverse_proxy guacamole:8080
+    }
+
+    encode gzip
+
+    log {
+        output stdout
+        format console
+        level INFO
+    }
+}
+
+api.example.com {
+    reverse_proxy http://keycloak:8080 {
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-Host {host}
+        header_up Host {host}
+    }
+    encode gzip
+    log {
+        output stdout
+        format console
+        level INFO
+    }
+}

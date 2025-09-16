@@ -1,39 +1,55 @@
 {
     email admin@example.com
-    acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN} 
+    acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    # acme_ca https://acme-v02.api.letsencrypt.org/directory
     acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
-    debug                                           
+    # Optional: enable debug only during troubleshooting
+    # debug
 }
 
 example.com {
-    # Redirect root domain to /guacamole/
+    tls {
+        dns cloudflare
+    }
+
     @root path /
     redir @root /guacamole/
 
     handle /guacamole/* {
-        reverse_proxy guacamole:8080
+        reverse_proxy guacamole:8080 {
+            header_up Host {host}
+            header_up X-Real-IP {remote}
+            header_up X-Forwarded-For {remote}
+            header_up X-Forwarded-Proto {scheme}
+        }
     }
 
     encode gzip
 
     log {
-        output stdout
-        format console
+        output file /var/log/caddy/example.com.log
+        format json
         level INFO
     }
 }
 
 api.example.com {
-    reverse_proxy http://keycloak:8080 {
-        header_up X-Forwarded-Proto {scheme}
-        header_up X-Forwarded-Host {host}
-        header_up Host {host}
+    tls {
+        dns cloudflare
     }
+
+    reverse_proxy keycloak:8080 {
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto {scheme}
+    }
+
     encode gzip
+
     log {
-        output stdout
-        format console
+        output file /var/log/caddy/api.example.com.log
+        format json
         level INFO
     }
 }
-
