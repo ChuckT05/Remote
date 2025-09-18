@@ -1,6 +1,6 @@
 services:
   guacamole:
-    image: docker.io/guacamole/guacamole:1.5.5
+    image: docker.io/guacamole/guacamole:1.6.0
     container_name: guacamole
     security_opt:
       - label:disable
@@ -31,7 +31,7 @@ services:
       - guacamole-nw
 
   guacamole-guacd:
-    image: docker.io/guacamole/guacd:1.5.5
+    image: docker.io/guacamole/guacd:1.6.0
     container_name: guacamole-guacd
     security_opt:
       - label:disable
