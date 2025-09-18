@@ -21,6 +21,9 @@ example.com {
             header_up X-Real-IP {remote}
             header_up X-Forwarded-For {remote}
             header_up X-Forwarded-Proto {scheme}
+
+            # allow long timeouts to prevent resetting active sessions
+            flush_interval -1
         }
     }
 
