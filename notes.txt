@@ -93,3 +93,22 @@ api.example.com {
         level INFO
     }
 }
+
+
+Basic Auth example
+
+nebird.example.com {
+    # Public access to homepage
+    reverse_proxy / localhost:8080
+
+    # Basic Auth for internal dashboard
+    basicauth /admin/* {
+        admin [bcrypt-hash]
+    }
+    reverse_proxy /admin/* localhost:8080
+
+    # OAuth for user portal (via plugin or external auth proxy)
+    reverse_proxy /user/* auth.example.com {
+        header_up Authorization {http.request.header.Authorization}
+    }
+}

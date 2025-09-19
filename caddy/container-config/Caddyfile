@@ -30,7 +30,8 @@ example.com {
     encode gzip
 
     log {
-        output file /var/log/caddy/example.com.log
+        # output file /var/log/caddy/example.com.log
+        output stdout
         format json
         level INFO
     }
@@ -51,7 +52,8 @@ api.example.com {
     encode gzip
 
     log {
-        output file /var/log/caddy/api.example.com.log
+        # output file /var/log/caddy/api.example.com.log
+        output stdout
         format json
         level INFO
     }
